@@ -1,0 +1,45 @@
+/* The product film still is the hero canvas; the copy sits on its quiet edge. */
+.hero {
+  width: 100%;
+  max-width: none;
+  min-height: 690px;
+  padding: 82px max(40px, calc((100vw - 1320px)/2)) 30px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 15, 15, .69);
+  z-index: -1;
+}
+.hero-copy { max-width: 690px; position: relative; z-index: 1; }
+.hero-media { position: absolute; inset: 0; z-index: -2; margin: 0; border: 0; aspect-ratio: auto; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 48%; }
+.media-bottom { display: none; }
+.hero-index {
+  position: absolute;
+  bottom: 26px;
+  left: max(40px, calc((100vw - 1320px)/2));
+  right: max(40px, calc((100vw - 1320px)/2));
+  margin: 0;
+  color: #c9d1c7;
+}
+.hero-description { color: #d6ded5; }
+.hero h1 span { color: #dae1d7; }
+@media (max-width: 900px) {
+  .hero { padding-inline: 22px; }
+  .hero-index { left: 22px; right: 22px; }
+}
+@media (max-width: 640px) {
+  .hero { min-height: 690px; padding-top: 75px; padding-bottom: 70px; }
+  .hero-media { margin: 0; }
+  .hero-media img { object-position: 58% center; }
+  .hero::after { background: rgba(8, 15, 15, .75); }
+  .hero h1 { white-space: normal; }
+  .hero-index { bottom: 20px; }
+}
