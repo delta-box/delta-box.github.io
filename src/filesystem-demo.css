@@ -2,7 +2,7 @@
 .inside-heading { max-width: 780px; margin-bottom: 48px; }
 .inside-heading h2 { margin: 27px 0 18px; }
 .inside-heading p { color: #64786e; line-height: 1.8; }
-.fs-demo { color: #193329; border: 1px solid #bfd0c8; border-radius: 8px; background: #f8fbf9; overflow: hidden; box-shadow: 0 24px 45px #31534714; }
+.fs-demo { position: relative; color: #193329; border: 1px solid #bfd0c8; border-radius: 8px; background: #f8fbf9; overflow: hidden; box-shadow: 0 24px 45px #31534714; }
 .fs-topbar { min-height: 67px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 0 30px; border-bottom: 1px solid #d3e0d9; }
 .fs-tabs { display: flex; align-items: stretch; gap: 24px; align-self: stretch; }
 .fs-tabs button { cursor: pointer; border: 0; border-bottom: 3px solid transparent; background: transparent; padding: 3px 0 0; color: #6f8278; font: 600 13px Inter,'Noto Sans SC',sans-serif; white-space: nowrap; }
@@ -18,26 +18,25 @@
 .fs-lane-head strong { color: #1d3b30; font-size: 15px; }
 .fs-lane-body { min-height: 155px; padding: 32px 18px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 25px; overflow: hidden; }
 .fs-lane-body small { color: #83988c; font-size: 11px; text-align: center; }
-.fs-blocks, .fs-write-blocks, .fs-old-blocks { display: flex; justify-content: center; gap: 5px; width: 100%; }
-.fs-blocks>span, .fs-write-blocks>span, .fs-old-blocks>span { width: min(18%, 45px); aspect-ratio: 1; display: grid; place-items: center; flex: none; border: 1px solid #9fb9ae; border-radius: 4px; color: #255744; background: #dfece5; font: 600 14px 'DM Mono',monospace; transition: transform .75s cubic-bezier(.2,1.4,.3,1), opacity .4s ease, background .4s ease, color .4s ease, border-color .4s ease; }
-.fs-write-blocks>span { width: 24%; border-color: #70b9d0; background: #d9f2f7; color: #23617a; }
-.fs-old-blocks>span { width: 24%; border-color: #dc9f57; background: #fff0d9; color: #a06115; }
-.fs-write-blocks, .fs-old-blocks, .fs-path { opacity: .23; transform: translateY(13px) scale(.86); transition: transform .75s cubic-bezier(.2,1.4,.3,1), opacity .45s ease; }
-.fs-macos .fs-lane:nth-child(2) .fs-blocks { opacity: .22; transform: translateX(-22px) scale(.88); transition: transform .75s cubic-bezier(.2,1.4,.3,1), opacity .45s ease; }
-.fs-demo:not([data-phase="initial"]) .fs-macos .fs-lane:nth-child(2) .fs-blocks { opacity: 1; transform: translateX(0) scale(1); }
-.fs-demo[data-phase="save"] .fs-linux .fs-old-blocks, .fs-demo[data-phase="write"] .fs-linux .fs-old-blocks, .fs-demo[data-phase="pending"] .fs-linux .fs-old-blocks, .fs-demo[data-phase="abort"] .fs-linux .fs-old-blocks { opacity: 1; transform: translateY(0) scale(1); }
-.fs-demo[data-phase="save"] .fs-old-blocks { animation: saved-range .75s cubic-bezier(.2,1.4,.3,1) both; }
-.fs-demo[data-phase="save"] .fs-macos .fs-lane:nth-child(2) .fs-blocks { animation: saved-baseline .75s cubic-bezier(.2,1.4,.3,1) both; }
-.fs-demo[data-phase="write"] .fs-write-blocks, .fs-demo[data-phase="pending"] .fs-write-blocks, .fs-demo[data-phase="commit"] .fs-write-blocks { opacity: 1; transform: translateY(0) scale(1); }
-.fs-demo[data-phase="write"] .fs-linux .linux-live-changed, .fs-demo[data-phase="write"] .fs-macos .mac-live-changed { animation: new-write .75s cubic-bezier(.2,1.4,.3,1) both; }
-.fs-demo[data-phase="write"] .fs-path { animation: saved-baseline .75s cubic-bezier(.2,1.4,.3,1) both; }
+.fs-blocks, .fs-write-blocks, .fs-old-blocks { --fs-cell: 45px; display: grid; grid-template-columns: repeat(5, var(--fs-cell)); gap: 5px; width: max-content; max-width: 100%; margin-inline: auto; }
+.fs-blocks>span, .fs-write-blocks>span, .fs-old-blocks>span { width: var(--fs-cell); height: var(--fs-cell); display: grid; place-items: center; border: 1px solid #9fb9ae; border-radius: 4px; color: #255744; background: #dfece5; font: 600 14px 'DM Mono',monospace; transition: transform .75s cubic-bezier(.2,1.4,.3,1), opacity .4s ease, background .4s ease, color .4s ease, border-color .4s ease; }
+.fs-write-blocks>span:first-child, .fs-old-blocks>span:first-child { grid-column: 3; }
+.fs-write-blocks>span { border-color: #70b9d0; background: #d9f2f7; color: #23617a; }
+.fs-old-blocks>span { border-color: #dc9f57; background: #fff0d9; color: #a06115; }
+.fs-write-blocks, .fs-old-blocks, .fs-path { opacity: .23; transition: opacity .35s ease; }
+.fs-macos .fs-lane:nth-child(2) .fs-blocks { opacity: .22; transition: opacity .35s ease; }
+.fs-demo:not([data-phase="initial"]) .fs-macos .fs-lane:nth-child(2) .fs-blocks { opacity: 1; }
+.fs-demo[data-phase="save"] .fs-linux .fs-old-blocks, .fs-demo[data-phase="write"] .fs-linux .fs-old-blocks, .fs-demo[data-phase="pending"] .fs-linux .fs-old-blocks, .fs-demo[data-phase="abort"] .fs-linux .fs-old-blocks { opacity: 1; }
+.fs-demo[data-phase="write"] .fs-write-blocks, .fs-demo[data-phase="pending"] .fs-write-blocks, .fs-demo[data-phase="commit"] .fs-write-blocks { opacity: 1; }
 .fs-demo[data-phase="write"] .linux-live-changed, .fs-demo[data-phase="pending"] .linux-live-changed, .fs-demo[data-phase="write"] .mac-live-changed, .fs-demo[data-phase="pending"] .mac-live-changed { border-color: #70b9d0; background: #d9f2f7; color: #23617a; transform: translateY(-5px); }
 .fs-demo[data-phase="commit"] .linux-live-changed, .fs-demo[data-phase="commit"] .mac-live-changed, .fs-demo[data-phase="commit"] .mac-base-changed { border-color: #52aa73; background: #dcf5e4; color: #087954; transform: translateY(-5px); }
 .fs-demo[data-phase="abort"] .linux-live-changed, .fs-demo[data-phase="abort"] .mac-live-changed { transform: translateY(0); }
-.fs-demo[data-phase="abort"] .fs-old-blocks { opacity: .35; transform: translateY(-10px) scale(.9); }
-@keyframes saved-range { from { opacity: 0; transform: translateX(-60px) scale(.7); } to { opacity: 1; transform: translateX(0) scale(1); } }
-@keyframes saved-baseline { from { opacity: .15; transform: translateX(-25px) scale(.86); } to { opacity: 1; transform: translateX(0) scale(1); } }
-@keyframes new-write { from { opacity: .35; transform: translateX(-30px) scale(.85); } to { opacity: 1; transform: translateX(0) scale(1); } }
+.fs-demo[data-phase="abort"] .fs-old-blocks { opacity: .35; }
+.fs-arrival { opacity: 0 !important; }
+.fs-flight { position: absolute; z-index: 20; display: grid; place-items: center; pointer-events: none; border: 1px solid; border-radius: 4px; font: 600 14px 'DM Mono',monospace; box-shadow: 0 8px 18px #1f46352a; }
+.fs-flight-old { background: #fff0d9; border-color: #dc9f57; color: #a06115; }
+.fs-flight-new { background: #d9f2f7; border-color: #70b9d0; color: #23617a; }
+.fs-flight-base { background: #dfece5; border-color: #9fb9ae; color: #255744; }
 .fs-path { display: inline-flex; align-items: center; justify-content: center; width: min(100%, 160px); min-height: 39px; padding: 0 9px; border: 1px solid #a6b8d6; border-radius: 4px; color: #435b82; background: #e9effb; font: 12px 'DM Mono',monospace; }
 .fs-demo[data-phase="write"] .fs-path, .fs-demo[data-phase="pending"] .fs-path { opacity: 1; transform: translateY(0) scale(1); }
 .fs-stage-row { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 0; border-top: 1px solid #d3e0d9; border-bottom: 1px solid #d3e0d9; background: #edf4ef; }
@@ -62,6 +61,6 @@
 .fs-disclaimer { margin: 15px 0 0; color: #687d70; font-size: 12px; line-height: 1.7; }
 .fs-disclaimer code { font: .95em 'DM Mono',monospace; }
 .fs-disclaimer a { color: #087954; text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 850px) { .fs-canvas { grid-template-columns: 1fr; gap: 9px; } .fs-lane { display: flex; min-height: 94px; } .fs-lane-head { width: 35%; min-width: 160px; border-bottom: 0; border-right: 1px solid #e2eae5; justify-content: center; } .fs-lane-body { flex: 1; min-height: 94px; padding: 12px; gap: 8px; } .fs-blocks>span, .fs-write-blocks>span, .fs-old-blocks>span { width: 36px; } @keyframes saved-range { from { opacity: 0; transform: translateY(-25px) scale(.7); } to { opacity: 1; transform: translateY(0) scale(1); } } @keyframes new-write { from { opacity: .35; transform: translateY(-22px) scale(.85); } to { opacity: 1; transform: translateY(0) scale(1); } } }
-@media (max-width: 640px) { .inside-heading { margin-bottom: 30px; } .fs-topbar { padding: 0 15px; min-height: 60px; } .fs-tabs { gap: 13px; } .fs-tabs button { font-size: 11px; } .fs-status { font-size: 10px; } .fs-platform-copy { padding: 16px 15px 6px; min-height: 0; } .fs-canvas { padding: 12px 15px 20px; } .fs-lane-head { min-width: 112px; width: 35%; padding: 11px; } .fs-lane-head strong { font-size: 12px; } .fs-lane-head span { font-size: 8px; } .fs-lane-body small { font-size: 9px; } .fs-blocks>span, .fs-write-blocks>span, .fs-old-blocks>span { width: 27px; font-size: 10px; } .fs-blocks, .fs-write-blocks, .fs-old-blocks { gap: 3px; } .fs-stage { min-height: 64px; padding: 10px 7px; } .fs-stage strong { font-size: 10px; } .fs-bottom { padding: 13px 15px; flex-wrap: wrap; } .fs-decision { width: 100%; justify-content: stretch; } .fs-decision button { flex: 1; justify-content: center; } .fs-narration { padding: 0 15px 16px; } }
+@media (max-width: 850px) { .fs-canvas { grid-template-columns: 1fr; gap: 9px; } .fs-lane { display: flex; min-height: 94px; } .fs-lane-head { width: 35%; min-width: 160px; border-bottom: 0; border-right: 1px solid #e2eae5; justify-content: center; } .fs-lane-body { flex: 1; min-height: 94px; padding: 12px; gap: 8px; } .fs-blocks, .fs-write-blocks, .fs-old-blocks { --fs-cell: 36px; } }
+@media (max-width: 640px) { .inside-heading { margin-bottom: 30px; } .fs-topbar { padding: 0 15px; min-height: 60px; } .fs-tabs { gap: 13px; } .fs-tabs button { font-size: 11px; } .fs-status { font-size: 10px; } .fs-platform-copy { padding: 16px 15px 6px; min-height: 0; } .fs-canvas { padding: 12px 15px 20px; } .fs-lane-head { min-width: 112px; width: 35%; padding: 11px; } .fs-lane-head strong { font-size: 12px; } .fs-lane-head span { font-size: 8px; } .fs-lane-body small { font-size: 9px; } .fs-blocks, .fs-write-blocks, .fs-old-blocks { --fs-cell: 27px; gap: 3px; } .fs-blocks>span, .fs-write-blocks>span, .fs-old-blocks>span, .fs-flight { font-size: 10px; } .fs-stage { min-height: 64px; padding: 10px 7px; } .fs-stage strong { font-size: 10px; } .fs-bottom { padding: 13px 15px; flex-wrap: wrap; } .fs-decision { width: 100%; justify-content: stretch; } .fs-decision button { flex: 1; justify-content: center; } .fs-narration { padding: 0 15px 16px; } }
 @media (prefers-reduced-motion: reduce) { .fs-demo *, .fs-demo *::before, .fs-demo *::after { animation: none !important; transition: none !important; } }

@@ -61,6 +61,7 @@ export function initFilesystemDemo(root) {
   let playing = false
   let timer = null
   let branchTimer = null
+  let flights = []
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
   root.innerHTML = `
@@ -80,6 +81,75 @@ export function initFilesystemDemo(root) {
     root.querySelector('#fs-play').textContent = '▶'
     root.querySelector('#fs-play').setAttribute('aria-label', '播放')
     root.querySelector('#fs-play').title = '播放'
+  }
+
+  const clearFlights = () => {
+    flights.forEach(({ animation, element, target }) => {
+      animation.cancel()
+      element.remove()
+      target.classList.remove('fs-arrival')
+    })
+    flights = []
+  }
+
+  const moveBlocks = (pairs, color) => {
+    if (reducedMotion.matches || !Element.prototype.animate) return
+    pairs.forEach(([source, target], index) => {
+      const start = source.getBoundingClientRect()
+      const end = target.getBoundingClientRect()
+      const bounds = root.getBoundingClientRect()
+      const dx = end.left - start.left
+      const dy = end.top - start.top
+      const element = document.createElement('span')
+      element.className = `fs-flight fs-flight-${color}`
+      element.textContent = target.textContent
+      element.style.left = `${start.left - bounds.left}px`
+      element.style.top = `${start.top - bounds.top}px`
+      element.style.width = `${start.width}px`
+      element.style.height = `${start.height}px`
+      target.classList.add('fs-arrival')
+      root.append(element)
+      const animation = element.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1, offset: 0 },
+        { transform: `translate(${dx * 1.04}px, ${dy * 1.04}px) scale(1.06)`, opacity: 1, offset: .83 },
+        { transform: `translate(${dx}px, ${dy}px) scale(1)`, opacity: 1, offset: 1 },
+      ], { duration: 1100, delay: index * 120, fill: 'forwards', easing: 'cubic-bezier(.25,.15,.2,1)' })
+      const flight = { animation, element, target }
+      flights.push(flight)
+      animation.finished.then(() => {
+        element.remove()
+        target.classList.remove('fs-arrival')
+        flights = flights.filter((item) => item !== flight)
+      }).catch(() => {})
+    })
+  }
+
+  const animateStep = (next) => {
+    const panel = root.querySelector(platform === 'linux' ? '.fs-linux' : '.fs-macos')
+    if (next === 1) {
+      const source = [...panel.querySelectorAll(platform === 'linux' ? '.linux-live-changed' : '.fs-lane:first-child .fs-block')]
+      const target = [...panel.querySelectorAll(platform === 'linux' ? '.fs-old-blocks span' : '.fs-lane:nth-child(2) .fs-block')]
+      moveBlocks(source.map((block, index) => [block, target[index]]), platform === 'linux' ? 'old' : 'base')
+    }
+    if (next === 2 && platform === 'linux') {
+      const source = [...panel.querySelectorAll('.fs-write-blocks span')]
+      const target = [...panel.querySelectorAll('.linux-live-changed')]
+      moveBlocks(source.map((block, index) => [block, target[index]]), 'new')
+    }
+  }
+
+  const animateAbort = () => {
+    const panel = root.querySelector(platform === 'linux' ? '.fs-linux' : '.fs-macos')
+    const source = [...panel.querySelectorAll(platform === 'linux' ? '.fs-old-blocks span' : '.mac-base-changed')]
+    const target = [...panel.querySelectorAll(platform === 'linux' ? '.linux-live-changed' : '.mac-live-changed')]
+    moveBlocks(source.map((block, index) => [block, target[index]]), platform === 'linux' ? 'old' : 'base')
+  }
+
+  const applyOutcome = (target) => {
+    clearFlights()
+    outcome = target
+    render()
+    if (target === 'abort') animateAbort()
   }
 
   const render = () => {
@@ -108,9 +178,12 @@ export function initFilesystemDemo(root) {
   }
 
   const setStep = (next) => {
+    const previous = step
+    clearFlights()
     outcome = null
     step = Math.max(0, Math.min(stages.length - 1, next))
     render()
+    if (step === previous + 1 && (step === 1 || step === 2)) animateStep(step)
   }
 
   root.querySelectorAll('.fs-tabs button').forEach((button) => button.addEventListener('click', () => {
@@ -136,10 +209,9 @@ export function initFilesystemDemo(root) {
     const target = button.dataset.outcome
     if (outcome) {
       setStep(3)
-      branchTimer = window.setTimeout(() => { outcome = target; render() }, reducedMotion.matches ? 0 : 350)
+      branchTimer = window.setTimeout(() => applyOutcome(target), reducedMotion.matches ? 0 : 350)
     } else {
-      outcome = target
-      render()
+      applyOutcome(target)
     }
   }))
   root.querySelector('#fs-play').addEventListener('click', () => {
@@ -151,7 +223,7 @@ export function initFilesystemDemo(root) {
     root.querySelector('#fs-play').title = '暂停'
     timer = window.setInterval(() => {
       if (step < stages.length - 1) setStep(step + 1)
-      else { outcome = 'commit'; render(); stop() }
+      else { applyOutcome('commit'); stop() }
     }, 1700)
   })
 
