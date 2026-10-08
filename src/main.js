@@ -2,6 +2,8 @@ import './style.css'
 import './hero.css'
 import './effects.css'
 import './integrations.css'
+import './filesystem-demo.css'
+import { initFilesystemDemo } from './filesystem-demo.js'
 
 const github = 'https://github.com/Ddnirvana/deltabox-lite'
 const film = '/media/deltabox-lite-v4.mp4'
@@ -74,7 +76,11 @@ document.querySelector('#app').innerHTML = `
     </section>
 
     <section class="inside-section" id="inside">
-      <div class="section-wrap inside-grid"><div class="reveal"><div class="section-label">04 / UNDER THE HOOD</div><h2>从文件系统开始，<br>建立可撤销的工作流。</h2><p>Linux 上，DeltaFS 在覆盖前保存旧数据，使当前改动立即可见，并为撤销留下依据。macOS 使用 APFS clone 与 FSEvents。具体模式可按可见性和隔离需求选择。</p><a class="text-link" href="${github}#how-it-works" target="_blank" rel="noopener noreferrer">阅读技术说明 <span aria-hidden="true">↗</span></a></div><img class="reveal" src="/media/05-save.jpg" alt="DeltaFS 保存旧数据范围的原理画面" loading="lazy"></div>
+      <div class="section-wrap">
+        <div class="inside-heading reveal"><div class="section-label">04 / UNDER THE HOOD</div><h2>从文件系统开始，<br>建立可撤销的工作流。</h2><p>同一套 diff、commit、abort 体验，由不同平台的原生能力支撑。</p></div>
+        <div id="filesystem-demo" class="fs-demo reveal" aria-label="文件状态交互演示"></div>
+        <p class="fs-disclaimer">逻辑状态示意，非磁盘物理布局或实际执行速度。此图展示 host 可立即看见改动的 <code>cbcow-through</code> 模式。<a href="${github}#how-it-works" target="_blank" rel="noopener noreferrer">阅读技术说明 ↗</a></p>
+      </div>
     </section>
 
     <section class="integrations-section" id="integrations">
@@ -112,6 +118,8 @@ document.querySelector('#app').innerHTML = `
   </main>
   <footer class="site-footer section-wrap"><a class="brand" href="#top"><span class="brand-mark">Δ</span><span>DeltaBox Lite</span></a><span>Agent-native sandboxing with diff · commit · abort.</span><a href="${github}" target="_blank" rel="noopener noreferrer">SOURCE ↗</a></footer>
 `
+
+initFilesystemDemo(document.querySelector('#filesystem-demo'))
 
 const stageContent = {
   run: ["$ deltabox exec \"$SESSION\" -- sh -c 'edit files'", 'Agent 在受约束的工作区中完成真实文件操作。'],
