@@ -1,6 +1,7 @@
 import './style.css'
 import './hero.css'
 import './effects.css'
+import './integrations.css'
 
 const github = 'https://github.com/Ddnirvana/deltabox-lite'
 const film = '/media/deltabox-lite-v4.mp4'
@@ -76,7 +77,38 @@ document.querySelector('#app').innerHTML = `
       <div class="section-wrap inside-grid"><div class="reveal"><div class="section-label">04 / UNDER THE HOOD</div><h2>从文件系统开始，<br>建立可撤销的工作流。</h2><p>Linux 上，DeltaFS 在覆盖前保存旧数据，使当前改动立即可见，并为撤销留下依据。macOS 使用 APFS clone 与 FSEvents。具体模式可按可见性和隔离需求选择。</p><a class="text-link" href="${github}#how-it-works" target="_blank" rel="noopener noreferrer">阅读技术说明 <span aria-hidden="true">↗</span></a></div><img class="reveal" src="/media/05-save.jpg" alt="DeltaFS 保存旧数据范围的原理画面" loading="lazy"></div>
     </section>
 
-    <section class="integrations-section" id="integrations"><div class="section-wrap"><div class="section-label">05 / START BUILDING</div><h2>接入现有工作流。</h2><p class="integration-intro">从命令行开始，也可以通过适配器接入 Agent。</p><div class="install-grid"><div><div class="install-head"><span>CLI</span><span>01</span></div><code>npm install --global deltabox-lite</code><p>安装独立命令行工具与 Node-API addon。</p></div><div><div class="install-head"><span>PI EXTENSION</span><span>02</span></div><code>pi install npm:pi-deltabox</code><p>在 Pi 的任务流程里审查、提交或撤销改动。</p></div></div><div class="footer-cta"><p>给每一次尝试，留下选择。</p><a class="button primary" href="${github}" target="_blank" rel="noopener noreferrer">查看 GitHub <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="integrations-section" id="integrations">
+      <div class="section-wrap">
+        <div class="section-label">05 / START BUILDING</div>
+        <h2>选择你的使用方式。</h2>
+        <p class="integration-intro">独立运行，或把审查与回滚接进 DSH、Pi。</p>
+        <div class="integration-grid">
+          <article class="integration-path reveal">
+            <div class="path-meta"><span>01 / STANDALONE</span><span>CLI</span></div>
+            <h3>独立使用</h3>
+            <p>在命令行或自己的 Agent 流程中控制 diff、commit 和 abort。</p>
+            <div class="command-label">发布后安装</div>
+            <pre><code>npm install -g deltabox-lite</code></pre>
+          </article>
+          <article class="integration-path reveal">
+            <div class="path-meta"><span>02 / DEEPSEEK HARNESS</span><span>DSH</span></div>
+            <h3>接入 DSH</h3>
+            <p>在 Harness 的审批面板审查改动，选择保留或撤销。</p>
+            <div class="command-label">计划中的 npm 插件命令</div>
+            <pre><code>dsh plugin --profile web add npm:dsh-deltabox</code></pre>
+          </article>
+          <article class="integration-path reveal">
+            <div class="path-meta"><span>03 / PI EXTENSION</span><span>PI</span></div>
+            <h3>接入 Pi</h3>
+            <p>在 Pi 中用 <code>/sandbox-review</code>、<code>/sandbox-commit</code> 和 <code>/sandbox-abort</code> 做决定。</p>
+            <div class="command-label">发布后安装</div>
+            <pre><code>pi install npm:pi-deltabox</code></pre>
+          </article>
+        </div>
+        <p class="availability-note">以上是发布后的目标命令，目前尚不可安装；DSH 的 <code>npm:</code> 插件来源还需在发布时验证。当前可从源码使用，详见项目 README 和插件文档。</p>
+        <div class="footer-cta"><p>给每一次尝试，留下选择。</p><a class="button primary" href="${github}" target="_blank" rel="noopener noreferrer">查看 GitHub <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
   </main>
   <footer class="site-footer section-wrap"><a class="brand" href="#top"><span class="brand-mark">Δ</span><span>DeltaBox Lite</span></a><span>Agent-native sandboxing with diff · commit · abort.</span><a href="${github}" target="_blank" rel="noopener noreferrer">SOURCE ↗</a></footer>
 `
