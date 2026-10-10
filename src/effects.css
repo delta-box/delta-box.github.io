@@ -55,7 +55,12 @@
 .bar-fill.raw { background: #e8899e; }
 .bench-note { margin: 22px 0 0; max-width: 1020px; color: #748397; line-height: 1.7; font-size: 12px; }
 .bench-note a { color: #0c7b54; text-decoration: underline; text-underline-offset: 3px; }
+.workflow-benchmark { margin-top: 58px; }
+.workflow-benchmark-heading { display: flex; justify-content: space-between; align-items: end; gap: 28px; margin-bottom: 20px; }
+.workflow-benchmark-heading h3 { margin: 0; font-size: 23px; }
+.workflow-benchmark-heading p { margin: 0; max-width: 570px; color: #526174; font-size: 13px; line-height: 1.7; }
+.workflow-bench-list { margin-top: 20px; }
 .install-grid>div:hover { transform: translateY(-6px); box-shadow: 0 20px 36px #0003; }
 @media (max-width: 900px) { .bench-list { grid-template-columns: 1fr; } .flow-demo { padding: 35px 20px 22px; } .flow-nodes { gap: 9px; } .flow-node { padding: 14px; } }
-@media (max-width: 640px) { .performance-section { padding: 75px 0; } .flow-demo { margin: -15px 0 38px; } .flow-rail { display: none; } .flow-nodes { grid-template-columns: repeat(2, 1fr); gap: 10px; } .flow-node { min-height: 106px; } .flow-detail { display: block; } .flow-detail p { margin-top: 9px; text-align: left; } .bench-title { display: block; min-height: 0; } .bench-title strong { display: block; margin-top: 12px; } .bench-item { padding: 19px; } .bar-row { grid-template-columns: 57px minmax(0, 1fr) 70px; gap: 6px; } .bar-row b { font-size: 10px; } }
+@media (max-width: 640px) { .performance-section { padding: 75px 0; } .flow-demo { margin: -15px 0 38px; } .flow-rail { display: none; } .flow-nodes { grid-template-columns: repeat(2, 1fr); gap: 10px; } .flow-node { min-height: 106px; } .flow-detail { display: block; } .flow-detail p { margin-top: 9px; text-align: left; } .bench-title { display: block; min-height: 0; } .bench-title strong { display: block; margin-top: 12px; } .bench-item { padding: 19px; } .bar-row { grid-template-columns: 57px minmax(0, 1fr) 70px; gap: 6px; } .bar-row b { font-size: 10px; } .workflow-benchmark { margin-top: 44px; } .workflow-benchmark-heading { display: block; } .workflow-benchmark-heading h3 { margin-bottom: 10px; font-size: 20px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } .bench-item .bar-fill.delta { width: var(--delta-width); } .bench-item .bar-fill.raw { width: var(--raw-width); } }

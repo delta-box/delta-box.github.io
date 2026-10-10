@@ -68,6 +68,11 @@ document.querySelector('#app').innerHTML = `
           <article class="bench-item reveal" style="--delta-width:10.6%;--raw-width:100%"><div class="bench-title"><h3>${copy.performance.case2}</h3><strong>9.4× <small>${copy.performance.faster}</small></strong></div><div class="bar-row"><span>DeltaBox</span><div class="bar-track"><div class="bar-fill delta"></div></div><b>509.0 ms</b></div><div class="bar-row"><span>Sandlock</span><div class="bar-track"><div class="bar-fill raw"></div></div><b>4809.5 ms</b></div></article>
         </div>
         <p class="bench-note">${copy.performance.note} <a href="${github}#performance" target="_blank" rel="noopener noreferrer">${copy.performance.source}</a></p>
+        <div class="workflow-benchmark reveal">
+          <div class="workflow-benchmark-heading"><h3>${copy.performance.workflowTitle}</h3><p>${copy.performance.workflowIntro}</p></div>
+          <div class="bench-list workflow-bench-list">${copy.performance.workflowRows.map((row) => `<article class="bench-item reveal" style="--delta-width:${row.deltaWidth};--raw-width:100%"><div class="bench-title"><h3>${row.label}</h3><strong>${row.result} <small>${copy.performance.faster}</small></strong></div><div class="bar-row"><span>CB-CoW</span><div class="bar-track"><div class="bar-fill delta"></div></div><b>${row.cbcow}</b></div><div class="bar-row"><span>Git</span><div class="bar-track"><div class="bar-fill raw"></div></div><b>${row.git}</b></div></article>`).join('')}</div>
+          <p class="bench-note"><a href="${github}/blob/a38e850/docs/native-mode-performance.md" target="_blank" rel="noopener noreferrer">${copy.performance.workflowSourceAbort}</a> · <a href="${github}/blob/a38e850/docs/native-mode-commit-performance.md" target="_blank" rel="noopener noreferrer">${copy.performance.workflowSourceCommit}</a></p>
+        </div>
       </div>
     </section>
 
