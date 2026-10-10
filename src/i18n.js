@@ -6,7 +6,7 @@ export const messages = {
     },
     nav: { aria: '主导航', workflow: '工作方式', performance: '性能', film: '宣传片', integrations: '接入', home: 'DeltaBox 首页', language: '语言' },
     hero: {
-      eyebrow: 'Agent 沙箱 支持 MacOS 与 Linux',
+      eyebrow: '支持 MacOS 与 Linux',
       lead1: '让 Agent 的每一次改动，', lead2: '都有选择。',
       description: '给 AI 编码 Agent 一个可控的工作区。每轮对话查看文件变更，决定保留结果，或撤销尝试。',
       workflow: '了解工作方式', film: '观看宣传片', imageAria: 'DeltaBox 宣传片画面', imageAlt: 'DeltaBox Lite 宣传片中的文件改动演示', scroll: '向下探索 ↓',
