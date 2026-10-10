@@ -16,9 +16,16 @@ const linuxDiagram = (copy) => `
 
 const macosDiagram = (copy) => `
   <div class="fs-canvas fs-macos" data-platform="macos">
-    <div class="fs-lane"><div class="fs-lane-head"><span>01 / ${copy.macos.liveLabel}</span><strong>${copy.macos.live}</strong></div><div class="fs-lane-body">${blockRow('mac-live')}<small>${copy.macos.liveHint}</small></div></div>
-    <div class="fs-lane"><div class="fs-lane-head"><span>02 / ${copy.macos.baseLabel}</span><strong>${copy.macos.base}</strong></div><div class="fs-lane-body">${blockRow('mac-base')}<small>${copy.macos.baseHint}</small></div></div>
-    <div class="fs-lane"><div class="fs-lane-head"><span>03 / ${copy.macos.eventsLabel}</span><strong>FSEvents</strong></div><div class="fs-lane-body"><span class="fs-path">greeting.py</span><small>${copy.macos.eventsHint}</small></div></div>
+    <div class="fs-mac-files">
+      <div class="fs-mac-file fs-mac-live"><span class="fs-mac-kicker">01 / ${copy.macos.liveLabel}</span><strong>${copy.macos.live}</strong><span class="fs-mac-reference">${copy.macos.pointsTo} <b class="fs-mac-live-ref">${copy.macos.oldVersion}</b></span><small>${copy.macos.liveHint}</small></div>
+      <div class="fs-mac-file fs-mac-base"><span class="fs-mac-kicker">02 / ${copy.macos.baseLabel}</span><strong>${copy.macos.base}</strong><span class="fs-mac-reference">${copy.macos.pointsTo} <b class="fs-mac-base-ref">${copy.macos.oldVersion}</b></span><small>${copy.macos.baseHint}</small></div>
+    </div>
+    <div class="fs-mac-pool">
+      <div class="fs-mac-row fs-mac-shared"><span class="fs-mac-row-label">${copy.macos.shared}</span><div class="fs-blocks" aria-hidden="true"><span class="fs-block">A</span><span class="fs-block">B</span></div><span class="fs-mac-links"><i class="fs-mac-link-live">LIVE</i><i class="fs-mac-link-base">${copy.macos.baseShort}</i></span></div>
+      <div class="fs-mac-row fs-mac-old"><span class="fs-mac-row-label">${copy.macos.oldVersion}</span><div class="fs-blocks" aria-hidden="true"><span class="fs-block">C</span><span class="fs-block">D</span><span class="fs-block">E</span></div><span class="fs-mac-links"><i class="fs-mac-link-live">LIVE</i><i class="fs-mac-link-base">${copy.macos.baseShort}</i></span></div>
+      <div class="fs-mac-row fs-mac-new"><span class="fs-mac-row-label">${copy.macos.newVersion}</span><div class="fs-blocks" aria-hidden="true"><span class="fs-block mac-new-block">C′</span><span class="fs-block mac-new-block">D′</span><span class="fs-block mac-new-block">E′</span></div><span class="fs-mac-links"><i class="fs-mac-link-live">LIVE</i><i class="fs-mac-link-base">${copy.macos.baseShort}</i></span></div>
+    </div>
+    <div class="fs-mac-events"><span>03 / FSEvents</span><code>greeting.py</code><small>${copy.macos.eventsHint}</small></div>
   </div>
 `
 
@@ -94,23 +101,57 @@ export function initFilesystemDemo(root, copy) {
 
   const animateStep = (next) => {
     const panel = root.querySelector(platform === 'linux' ? '.fs-linux' : '.fs-macos')
-    if (next === 1) {
-      const source = [...panel.querySelectorAll(platform === 'linux' ? '.linux-live-changed' : '.fs-lane:first-child .fs-block')]
-      const target = [...panel.querySelectorAll(platform === 'linux' ? '.fs-old-blocks span' : '.fs-lane:nth-child(2) .fs-block')]
-      moveBlocks(source.map((block, index) => [block, target[index]]), platform === 'linux' ? 'old' : 'base')
+    if (next === 1 && platform === 'linux') {
+      const source = [...panel.querySelectorAll('.linux-live-changed')]
+      const target = [...panel.querySelectorAll('.fs-old-blocks span')]
+      moveBlocks(source.map((block, index) => [block, target[index]]), 'old')
     }
     if (next === 2 && platform === 'linux') {
       const source = [...panel.querySelectorAll('.fs-write-blocks span')]
       const target = [...panel.querySelectorAll('.linux-live-changed')]
       moveBlocks(source.map((block, index) => [block, target[index]]), 'new')
     }
+    if (next === 2 && platform === 'macos') {
+      panel.querySelectorAll('.mac-new-block').forEach((block, index) => {
+        if (reducedMotion.matches || !Element.prototype.animate) return
+        block.animate([
+          { transform: 'translateY(34px) scale(.7)', opacity: 0 },
+          { transform: 'translateY(-5px) scale(1.07)', opacity: 1, offset: .8 },
+          { transform: 'translateY(0) scale(1)', opacity: 1 },
+        ], { duration: 780, delay: index * 130, easing: 'cubic-bezier(.2,.8,.2,1)' })
+      })
+    }
   }
 
   const animateAbort = () => {
     const panel = root.querySelector(platform === 'linux' ? '.fs-linux' : '.fs-macos')
-    const source = [...panel.querySelectorAll(platform === 'linux' ? '.fs-old-blocks span' : '.mac-base-changed')]
-    const target = [...panel.querySelectorAll(platform === 'linux' ? '.linux-live-changed' : '.mac-live-changed')]
-    moveBlocks(source.map((block, index) => [block, target[index]]), platform === 'linux' ? 'old' : 'base')
+    if (platform === 'macos') {
+      const source = panel.querySelector('.fs-mac-base')
+      const target = panel.querySelector('.fs-mac-live')
+      if (reducedMotion.matches || !Element.prototype.animate) return
+      const start = source.getBoundingClientRect()
+      const end = target.getBoundingClientRect()
+      const bounds = root.getBoundingClientRect()
+      const card = source.cloneNode(true)
+      card.classList.add('fs-mac-restore')
+      card.querySelector('strong').textContent = copy.macos.restore
+      card.style.left = `${start.left - bounds.left}px`
+      card.style.top = `${start.top - bounds.top}px`
+      card.style.width = `${start.width}px`
+      card.style.height = `${start.height}px`
+      root.append(card)
+      const animation = card.animate([
+        { transform: 'translate(0,0) scale(1)', opacity: 1 },
+        { transform: `translate(${(end.left - start.left) * 1.04}px,${(end.top - start.top) * 1.04}px) scale(1.04)`, opacity: 1, offset: .82 },
+        { transform: `translate(${end.left - start.left}px,${end.top - start.top}px) scale(1)`, opacity: 0 },
+      ], { duration: 1050, easing: 'cubic-bezier(.25,.15,.2,1)' })
+      flights.push({ animation, element: card, target })
+      animation.finished.then(() => { card.remove(); flights = flights.filter((item) => item.element !== card) }).catch(() => {})
+      return
+    }
+    const source = [...panel.querySelectorAll('.fs-old-blocks span')]
+    const target = [...panel.querySelectorAll('.linux-live-changed')]
+    moveBlocks(source.map((block, index) => [block, target[index]]), 'old')
   }
 
   const applyOutcome = (target) => {
@@ -118,6 +159,10 @@ export function initFilesystemDemo(root, copy) {
     outcome = target
     render()
     if (target === 'abort') animateAbort()
+    if (target === 'commit' && platform === 'macos') {
+      const panel = root.querySelector('.fs-macos')
+      moveBlocks([[panel.querySelector('.fs-mac-live-ref'), panel.querySelector('.fs-mac-base-ref')]], 'new')
+    }
   }
 
   const render = () => {
@@ -137,12 +182,12 @@ export function initFilesystemDemo(root, copy) {
       button.disabled = step !== stages.length - 1 && !outcome
       button.setAttribute('aria-pressed', String(outcome === button.dataset.outcome))
     })
-    root.querySelectorAll('.fs-block.linux-live-changed, .fs-block.mac-live-changed, .fs-block.mac-base-changed').forEach((block) => {
-      const changed = block.classList.contains('mac-base-changed')
-        ? outcome === 'commit'
-        : (step >= 2 && outcome !== 'abort')
-      block.textContent = `${block.dataset.letter}${changed ? '′' : ''}`
+    root.querySelectorAll('.fs-block.linux-live-changed').forEach((block) => {
+      block.textContent = `${block.dataset.letter}${step >= 2 && outcome !== 'abort' ? '′' : ''}`
     })
+    const mac = root.querySelector('.fs-macos')
+    mac.querySelector('.fs-mac-live-ref').textContent = step >= 2 && outcome !== 'abort' ? copy.macos.newVersion : copy.macos.oldVersion
+    mac.querySelector('.fs-mac-base-ref').textContent = outcome === 'commit' ? copy.macos.newVersion : copy.macos.oldVersion
   }
 
   const setStep = (next) => {
