@@ -4,7 +4,7 @@ export const messages = {
       title: 'DeltaBox Lite',
       description: 'DeltaBox Lite 为 AI 编码 Agent 提供可审查、可提交、可撤销的工作区改动。',
     },
-    nav: { aria: '主导航', workflow: '工作方式', performance: '性能', film: '宣传片', integrations: '接入', home: 'DeltaBox 首页', language: '语言' },
+    nav: { aria: '主导航', workflow: '工作方式', performance: '性能', film: '宣传片', integrations: '接入', members: '成员', home: 'DeltaBox 首页', language: '语言' },
     hero: {
       eyebrow: '支持 MacOS 与 Linux',
       lead1: '让 Agent 的每一次改动，', lead2: '都有选择。',
@@ -53,6 +53,7 @@ export const messages = {
       availability: '也可从源码构建，详见项目 README。',
       cta: '让每一次尝试，都有选择。', github: '查看 GitHub',
     },
+    members: { label: '06 / 成员', title: '一起构建 DeltaBox。', intro: '感谢所有通过代码提交参与项目的贡献者。' },
     footer: 'delta-box @ IPADS 2026', footerSource: '源码 ↗',
     fs: {
       aria: '文件状态交互演示', tabsAria: '文件系统平台', stageAria: '演示阶段',
@@ -78,9 +79,9 @@ export const messages = {
       title: 'DeltaBox Lite — Keep or undo every change',
       description: 'DeltaBox Lite gives AI coding agents a confined workspace with reviewable changes and explicit commit or abort decisions.',
     },
-    nav: { aria: 'Main navigation', workflow: 'How it works', performance: 'Performance', film: 'Film', integrations: 'Integrations', home: 'DeltaBox home', language: 'Language' },
+    nav: { aria: 'Main navigation', workflow: 'How it works', performance: 'Performance', film: 'Film', integrations: 'Integrations', members: 'Members', home: 'DeltaBox home', language: 'Language' },
     hero: {
-      eyebrow: 'AGENT-NATIVE SANDBOX · LINUX / macOS',
+      eyebrow: 'Linux & macOS Support',
       lead1: 'Let agents make changes.', lead2: 'You decide what stays.',
       description: 'Give AI coding agents a controlled workspace. Review what changed, then accept the result or roll back the attempt.',
       workflow: 'How it works', film: 'Watch the film', imageAria: 'DeltaBox product film still', imageAlt: 'A file change illustrated in the DeltaBox Lite product film', scroll: 'SCROLL TO EXPLORE ↓',
@@ -127,6 +128,7 @@ export const messages = {
       availability: 'These are target commands for a future release and cannot be installed yet. DSH npm: plugin support still needs verification at release. You can use the source today; see the project README and plugin docs.',
       cta: 'Make every attempt a choice.', github: 'View on GitHub',
     },
+    members: { label: '06 / MEMBERS', title: 'Built together.', intro: 'Thanks to everyone who has contributed code to DeltaBox Lite.' },
     footer: 'Agent-native sandboxing with diff · commit · abort.', footerSource: 'SOURCE ↗',
     fs: {
       aria: 'Interactive file state walkthrough', tabsAria: 'Filesystem platform', stageAria: 'Walkthrough stages',

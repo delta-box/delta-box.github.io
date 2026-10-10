@@ -2,6 +2,7 @@ import './style.css'
 import './hero.css'
 import './effects.css'
 import './integrations.css'
+import './members.css'
 import './filesystem-demo.css'
 import './language.css'
 import { initFilesystemDemo } from './filesystem-demo.js'
@@ -17,7 +18,7 @@ document.querySelector('#app').innerHTML = `
   <header class="site-header">
     <a class="brand" href="#top" aria-label="${copy.nav.home}"><span class="brand-mark">Δ</span><span>DeltaBox<span class="brand-lite"> Lite</span></span></a>
     <nav aria-label="${copy.nav.aria}">
-      <a href="#workflow">${copy.nav.workflow}</a><a href="#performance">${copy.nav.performance}</a><a href="#film">${copy.nav.film}</a><a href="#integrations">${copy.nav.integrations}</a>
+      <a href="#workflow">${copy.nav.workflow}</a><a href="#performance">${copy.nav.performance}</a><a href="#film">${copy.nav.film}</a><a href="#integrations">${copy.nav.integrations}</a><a href="#members">${copy.nav.members}</a>
     </nav>
     <div class="header-actions"><div class="language-switch" role="group" aria-label="${copy.nav.language}"><button type="button" data-lang="zh" aria-pressed="${locale === 'zh'}">中文</button><button type="button" data-lang="en" aria-pressed="${locale === 'en'}">EN</button></div><a class="header-link" href="${github}" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
   </header>
@@ -116,6 +117,31 @@ document.querySelector('#app').innerHTML = `
         </div>
         <p class="availability-note">${copy.integrations.availability}</p>
         <div class="footer-cta"><p>${copy.integrations.cta}</p><a class="button primary" href="${github}" target="_blank" rel="noopener noreferrer">${copy.integrations.github} <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+    <section class="members-section" id="members">
+      <div class="section-wrap">
+        <div class="section-label">${copy.members.label}</div>
+        <h2>${copy.members.title}</h2>
+        <p class="members-intro">${copy.members.intro}</p>
+        <div class="members-grid">
+          <a class="member-card" href="https://github.com/Ddnirvana" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/Ddnirvana.png?size=128" alt="Dong Du" loading="lazy">
+            <span class="member-name">Dong Du</span><span class="member-handle">@Ddnirvana <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="member-card" href="https://github.com/He-Jingkai" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/He-Jingkai.png?size=128" alt="Jingkai He" loading="lazy">
+            <span class="member-name">Jingkai He</span><span class="member-handle">@He-Jingkai <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="member-card" href="https://github.com/xeonliu" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/xeonliu.png?size=128" alt="Liu Shiqi" loading="lazy">
+            <span class="member-name">Liu Shiqi</span><span class="member-handle">@xeonliu <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="member-card" href="https://github.com/papersii" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/papersii.png?size=128" alt="papersii" loading="lazy">
+            <span class="member-name">papersii</span><span class="member-handle">@papersii <span aria-hidden="true">↗</span></span>
+          </a>
+        </div>
       </div>
     </section>
   </main>
