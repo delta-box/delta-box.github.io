@@ -34,8 +34,8 @@ export const messages = {
       case1: '256 MiB 文件，写入 4 KiB', case2: '16 条命令，每个 32 MiB 文件写入 4 KiB，最后提交',
       note: '在 ext4 文件系统上测试。原始 Sandlock 不提供跨命令持久会话，第二项测试逐条命令独立提交。',
       source: '完整测试数据 ↗',
-      workflowTitle: '事务流程对比',
-      workflowIntro: 'CB-CoW + DeltaBox 对比 Git + Bubblewrap · p50',
+      workflowTitle: '审查流程性能',
+      workflowCbcow: 'CB-CoW + DeltaBox', workflowGit: 'Git + Bubblewrap',
       workflowRows: [
         { label: '新建 1 KiB 文件 · abort', cbcow: '6.37 ms', git: '44.42 ms', result: '7.0×', deltaWidth: '14.4%' },
         { label: '改写 1 KiB 文件 · commit', cbcow: '6.94 ms', git: '51.90 ms', result: '7.5×', deltaWidth: '13.4%' },
@@ -117,7 +117,7 @@ export const messages = {
       note: 'x86 server · Linux 6.18 · ext4 · release build · p50. Raw Sandlock has no durable cross-command session, so the second workload commits each one-shot command separately. For no-op commands, DeltaBox p50 is 13.7–14.3 ms versus 8.1–8.2 ms for raw Sandlock.',
       source: 'Full benchmarks and p95 data ↗',
       workflowTitle: 'Review workflow comparison',
-      workflowIntro: 'CB-CoW + DeltaBox vs Git + Bubblewrap · p50',
+      workflowCbcow: 'CB-CoW + DeltaBox', workflowGit: 'Git + Bubblewrap',
       workflowRows: [
         { label: 'Create 1 KiB file · abort', cbcow: '6.37 ms', git: '44.42 ms', result: '7.0×', deltaWidth: '14.4%' },
         { label: 'Rewrite 1 KiB file · commit', cbcow: '6.94 ms', git: '51.90 ms', result: '7.5×', deltaWidth: '13.4%' },
