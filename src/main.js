@@ -9,8 +9,11 @@ import { initFilesystemDemo } from './filesystem-demo.js'
 import { applyMetadata, getLocale, messages, switchLocale } from './i18n.js'
 
 const github = 'https://github.com/Ddnirvana/deltabox-lite'
-const film = '/media/deltabox-lite-v4.mp4'
 const locale = getLocale()
+const filmMedia = {
+  zh: { video: '/media/deltabox-lite-v5.mp4', poster: '/media/05-save.zh.jpg', intro: '/media/01-intro.zh.jpg' },
+  en: { video: '/media/deltabox-lite-v6-en.mp4', poster: '/media/05-save.en.jpg', intro: '/media/01-intro.en.jpg' },
+}[locale]
 const copy = messages[locale]
 applyMetadata(locale)
 
@@ -33,7 +36,7 @@ document.querySelector('#app').innerHTML = `
         <div class="hero-actions"><a class="button primary" href="#workflow">${copy.hero.workflow} <span aria-hidden="true">↗</span></a><a class="button ghost" href="#film">${copy.hero.film} <span aria-hidden="true">↗</span></a></div>
       </div>
       <div class="hero-media" aria-label="${copy.hero.imageAria}">
-        <img src="/media/01-intro.jpg" alt="${copy.hero.imageAlt}" fetchpriority="high">
+        <img src="${filmMedia.intro}" alt="${copy.hero.imageAlt}" fetchpriority="high">
         <div class="media-bottom"><span>01 / REVIEW THE CHANGE</span><span>DIFF · COMMIT · ABORT</span></div>
       </div>
       <div class="hero-index"><span>01 — 05</span><span>${copy.hero.scroll}</span></div>
@@ -80,7 +83,7 @@ document.querySelector('#app').innerHTML = `
     <section class="film-section" id="film">
       <div class="section-wrap">
         <div class="section-heading reveal"><div><div class="section-label">${copy.film.label}</div><h2>${copy.film.title}</h2></div><p>${copy.film.intro}</p></div>
-        <div class="film-frame"><video controls preload="none" poster="/media/05-save.jpg" playsinline aria-label="${copy.film.aria}"><source src="${film}" type="video/mp4">${copy.film.fallback}</video></div>
+        <div class="film-frame"><video controls preload="none" poster="${filmMedia.poster}" playsinline aria-label="${copy.film.aria}"><source src="${filmMedia.video}" type="video/mp4">${copy.film.fallback}</video></div>
         <div class="film-caption"><span>${copy.film.brandCaption}</span><span>${copy.film.caption}</span></div>
       </div>
     </section>
