@@ -151,6 +151,14 @@ document.querySelector('#app').innerHTML = `
             <img src="https://github.com/unitial.png?size=128" alt="斌哥" loading="lazy">
             <span class="member-name">斌哥</span><span class="member-handle">@unitial <span aria-hidden="true">↗</span></span>
           </a>
+          <a class="member-card" href="https://github.com/ErhuFeng" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/ErhuFeng.png?size=128" alt="ErhuFeng" loading="lazy">
+            <span class="member-name">ErhuFeng</span><span class="member-handle">@ErhuFeng <span aria-hidden="true">↗</span></span>
+          </a>
+          <a class="member-card" href="https://github.com/haibochen" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/haibochen.png?size=128" alt="haibochen" loading="lazy">
+            <span class="member-name">haibochen</span><span class="member-handle">@haibochen <span aria-hidden="true">↗</span></span>
+          </a>
         </div>
       </div>
     </section>
