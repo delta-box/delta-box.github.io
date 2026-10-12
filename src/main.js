@@ -147,6 +147,10 @@ document.querySelector('#app').innerHTML = `
             <img src="https://github.com/papersii.png?size=128" alt="papersii" loading="lazy">
             <span class="member-name">papersii</span><span class="member-handle">@papersii <span aria-hidden="true">↗</span></span>
           </a>
+          <a class="member-card" href="https://github.com/unitial" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/unitial.png?size=128" alt="斌哥" loading="lazy">
+            <span class="member-name">斌哥</span><span class="member-handle">@unitial <span aria-hidden="true">↗</span></span>
+          </a>
         </div>
       </div>
     </section>
