@@ -162,6 +162,10 @@ document.querySelector('#app').innerHTML = `
             <img src="https://github.com/haibochen.png?size=128" alt="haibochen" loading="lazy">
             <span class="member-name">haibochen</span><span class="member-handle">@haibochen <span aria-hidden="true">↗</span></span>
           </a>
+          <a class="member-card" href="https://github.com/dongyunpeng-sjtu" target="_blank" rel="noopener noreferrer">
+            <img src="https://github.com/dongyunpeng-sjtu.png?size=128" alt="dongyunpeng-sjtu" loading="lazy">
+            <span class="member-name">dongyunpeng-sjtu</span><span class="member-handle">@dongyunpeng-sjtu <span aria-hidden="true">↗</span></span>
+          </a>
         </div>
       </div>
     </section>
