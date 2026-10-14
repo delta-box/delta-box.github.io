@@ -1,0 +1,136 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.200
+Letting AI write code is easier than ever.
+
+00:00:02.910 --> 00:00:03.740
+But what did it change?
+
+00:00:04.180 --> 00:00:05.190
+And if it takes a wrong turn,
+
+00:00:05.700 --> 00:00:06.560
+how do you step back?
+
+00:00:07.155 --> 00:00:07.975
+DeltaBox Lite:
+
+00:00:08.535 --> 00:00:10.665
+keep changes easy to inspect and keep,
+
+00:00:11.195 --> 00:00:12.155
+while safe to undo.
+
+00:00:12.825 --> 00:00:14.585
+It starts with a simple file modification.
+
+00:00:15.045 --> 00:00:17.915
+DeltaBox introduces Commit-Biased Copy-on-Write.
+
+00:00:18.580 --> 00:00:21.600
+Commit-Biased Copy-on-Write updates the workspace in place,
+
+00:00:21.730 --> 00:00:23.990
+while capturing a safe baseline for potential rollbacks.
+
+00:00:24.602 --> 00:00:25.972
+Before any data is overwritten,
+
+00:00:26.342 --> 00:00:29.542
+the system first records the original range into an undo log.
+
+00:00:30.205 --> 00:00:32.705
+New data is then written directly to the workspace.
+
+00:00:33.465 --> 00:00:34.705
+Changes are live immediately,
+
+00:00:35.295 --> 00:00:36.765
+completely transparent to your tools.
+
+00:00:37.465 --> 00:00:38.975
+If you are happy with the result,
+
+00:00:39.015 --> 00:00:41.445
+commit seals the current state, keeping the changes.
+
+00:00:42.122 --> 00:00:43.192
+If you need to roll back,
+
+00:00:43.232 --> 00:00:44.392
+abort replays the log,
+
+00:00:44.492 --> 00:00:47.042
+instantly restoring the workspace to how it was before.
+
+00:00:47.695 --> 00:00:50.545
+In-place writes preserve seamless developer workflows.
+
+00:00:51.185 --> 00:00:52.995
+The undo log protects your baseline.
+
+00:00:53.653 --> 00:00:55.293
+Integrated with DeepSeek Harness.
+
+00:00:56.063 --> 00:00:57.063
+When files are modified,
+
+00:00:57.553 --> 00:00:59.433
+a review panel outlines the changes.
+
+00:01:00.123 --> 00:01:00.713
+Reject it,
+
+00:01:01.263 --> 00:01:02.773
+and the modifications are rolled back.
+
+00:01:04.445 --> 00:01:07.315
+If you approve the changes, select "Allow once".
+
+00:01:08.015 --> 00:01:11.155
+DeltaBox commits the state, and the agent moves on to the next task.
+
+00:01:12.000 --> 00:01:12.700
+Inside Pi,
+
+00:01:13.080 --> 00:01:14.900
+run sandbox review to inspect the diff.
+
+00:01:19.145 --> 00:01:19.955
+Once verified,
+
+00:01:20.305 --> 00:01:22.375
+run sandbox commit to keep the result.
+
+00:01:28.425 --> 00:01:29.895
+Want to discard the next attempt?
+
+00:01:30.505 --> 00:01:31.855
+Just type sandbox abort.
+
+00:01:33.955 --> 00:01:34.745
+Confirm with Enter,
+
+00:01:35.215 --> 00:01:38.295
+and the workspace reverts to the clean state before this run.
+
+00:01:39.872 --> 00:01:41.552
+Two distinct agent workflows,
+
+00:01:41.872 --> 00:01:43.942
+powered by the exact same state engine.
+
+00:01:44.702 --> 00:01:46.942
+Native on Linux and macOS.
+
+00:01:47.622 --> 00:01:48.582
+Let agents explore.
+
+00:01:49.112 --> 00:01:50.462
+Keep the choice in your hands.
+
+00:01:51.212 --> 00:01:52.012
+DeltaBox Lite,
+
+00:01:52.602 --> 00:01:54.192
+giving every attempt a choice.

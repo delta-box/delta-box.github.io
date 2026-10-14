@@ -11,8 +11,8 @@ import { applyMetadata, getLocale, messages, switchLocale } from './i18n.js'
 const github = 'https://github.com/Ddnirvana/deltabox-lite'
 const locale = getLocale()
 const filmMedia = {
-  zh: { video: '/media/deltabox-lite-v5.mp4', poster: '/media/05-save.zh.jpg', intro: '/media/01-intro.zh.jpg' },
-  en: { video: '/media/deltabox-lite-v6-en.mp4', poster: '/media/05-save.en.jpg', intro: '/media/01-intro.en.jpg' },
+  zh: { video: '/media/deltabox-lite-v5-clean.mp4', captions: '/media/captions.zh-CN.vtt', language: 'zh-CN', label: '中文', poster: '/media/05-save.zh.jpg', intro: '/media/01-intro.zh.jpg' },
+  en: { video: '/media/deltabox-lite-v6-en-clean.mp4', captions: '/media/captions.en.vtt', language: 'en', label: 'English', poster: '/media/05-save.en.jpg', intro: '/media/01-intro.en.jpg' },
 }[locale]
 const copy = messages[locale]
 applyMetadata(locale)
@@ -83,7 +83,7 @@ document.querySelector('#app').innerHTML = `
     <section class="film-section" id="film">
       <div class="section-wrap">
         <div class="section-heading reveal"><div><div class="section-label">${copy.film.label}</div><h2>${copy.film.title}</h2></div><p>${copy.film.intro}</p></div>
-        <div class="film-frame"><video controls preload="none" poster="${filmMedia.poster}" playsinline aria-label="${copy.film.aria}"><source src="${filmMedia.video}" type="video/mp4">${copy.film.fallback}</video></div>
+        <div class="film-frame"><video controls preload="none" poster="${filmMedia.poster}" playsinline aria-label="${copy.film.aria}"><source src="${filmMedia.video}" type="video/mp4"><track default kind="subtitles" src="${filmMedia.captions}" srclang="${filmMedia.language}" label="${filmMedia.label}">${copy.film.fallback}</video></div>
         <div class="film-caption"><span>${copy.film.brandCaption}</span><span>${copy.film.caption}</span></div>
       </div>
     </section>
