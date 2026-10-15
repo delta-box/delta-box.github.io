@@ -8,7 +8,7 @@ import './language.css'
 import { initFilesystemDemo } from './filesystem-demo.js'
 import { applyMetadata, getLocale, messages, switchLocale } from './i18n.js'
 
-const github = 'https://github.com/Ddnirvana/deltabox-lite'
+const github = 'https://github.com/delta-box/deltabox-lite'
 const locale = getLocale()
 const filmMedia = {
   zh: { video: '/media/deltabox-lite-v5-clean.mp4', captions: '/media/captions.zh-CN.vtt', language: 'zh-CN', label: '中文', poster: '/media/05-save.zh.jpg', intro: '/media/01-intro.zh.jpg' },
