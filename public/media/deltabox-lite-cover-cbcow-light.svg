@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="383" viewBox="0 0 900 383" role="img" aria-labelledby="title desc">
+  <title id="title">DeltaBox Lite CBCoW: Commit Biased CoW</title>
+  <desc id="desc">A light cover showing changed data in the live workspace and original data preserved in a pre-image log for abort.</desc>
+  <defs>
+    <marker id="arrow-live" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#308399"/>
+    </marker>
+    <marker id="arrow-log" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#a87624"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="383" fill="#fbfcf8"/>
+  <path d="M0 18H900" stroke="#e8ece4"/>
+  <path d="M477 54V329" stroke="#d9dfd5"/>
+
+  <rect x="52" y="45" width="40" height="40" fill="none" stroke="#66721f" stroke-width="1.5"/>
+  <text x="72" y="76" fill="#66721f" font-family="Inter, Arial, sans-serif" font-size="30" text-anchor="middle">Δ</text>
+  <text x="106" y="74" fill="#142132" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700">DeltaBox</text>
+  <text x="225" y="74" fill="#526174" font-family="Inter, Arial, sans-serif" font-size="25">Lite</text>
+
+  <text x="54" y="129" fill="#66721f" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">AGENT-NATIVE SANDBOX</text>
+  <text x="52" y="194" fill="#142132" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="700">Run. Diff.</text>
+  <text x="52" y="243" fill="#142132" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="600">Commit or abort.</text>
+  <text x="54" y="288" fill="#526174" font-family="Inter, Arial, sans-serif" font-size="15">A filesystem sandbox for AI coding agents.</text>
+
+  <rect x="505" y="54" width="343" height="275" rx="8" fill="#f3f6ef" stroke="#d5ddd1"/>
+  <text x="527" y="82" fill="#66746a" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing=".5">CBCoW · COMMIT-BIASED CoW</text>
+
+  <text x="527" y="115" fill="#308399" font-family="Inter, Arial, sans-serif" font-size="8" font-weight="700" letter-spacing=".5">AGENT WRITE</text>
+  <text x="527" y="164" fill="#425248" font-family="Inter, Arial, sans-serif" font-size="8" font-weight="700" letter-spacing=".4">LIVE WORKSPACE</text>
+  <text x="527" y="216" fill="#a87624" font-family="Inter, Arial, sans-serif" font-size="8" font-weight="700" letter-spacing=".2">PRE-IMAGE LOG</text>
+
+  <path d="M719.5 126V145" fill="none" stroke="#308399" stroke-width="1.2" marker-end="url(#arrow-live)"/>
+  <path d="M748.5 126V145" fill="none" stroke="#308399" stroke-width="1.2" marker-end="url(#arrow-live)"/>
+  <path d="M777.5 126V145" fill="none" stroke="#308399" stroke-width="1.2" marker-end="url(#arrow-live)"/>
+  <path d="M719.5 181V201" fill="none" stroke="#a87624" stroke-width="1.2" marker-end="url(#arrow-log)"/>
+  <path d="M748.5 181V201" fill="none" stroke="#a87624" stroke-width="1.2" marker-end="url(#arrow-log)"/>
+  <path d="M777.5 181V201" fill="none" stroke="#a87624" stroke-width="1.2" marker-end="url(#arrow-log)"/>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+    <rect x="707" y="98" width="25" height="28" rx="3" fill="#eaf4f3" stroke="#308399" stroke-dasharray="3 2"/>
+    <rect x="736" y="98" width="25" height="28" rx="3" fill="#eaf4f3" stroke="#308399" stroke-dasharray="3 2"/>
+    <rect x="765" y="98" width="25" height="28" rx="3" fill="#eaf4f3" stroke="#308399" stroke-dasharray="3 2"/>
+    <text x="719.5" y="116" fill="#308399">C′</text>
+    <text x="748.5" y="116" fill="#308399">D′</text>
+    <text x="777.5" y="116" fill="#308399">E′</text>
+
+    <rect x="649" y="149" width="25" height="32" rx="3" fill="#ebefea" stroke="#cbd3c9"/>
+    <rect x="678" y="149" width="25" height="32" rx="3" fill="#ebefea" stroke="#cbd3c9"/>
+    <rect x="707" y="149" width="25" height="32" rx="3" fill="#f1f4dc" stroke="#87951e" stroke-width="1.2"/>
+    <rect x="736" y="149" width="25" height="32" rx="3" fill="#f1f4dc" stroke="#87951e" stroke-width="1.2"/>
+    <rect x="765" y="149" width="25" height="32" rx="3" fill="#f1f4dc" stroke="#87951e" stroke-width="1.2"/>
+    <rect x="794" y="149" width="25" height="32" rx="3" fill="#ebefea" stroke="#cbd3c9"/>
+    <text x="661.5" y="170" fill="#69766b">A</text>
+    <text x="690.5" y="170" fill="#69766b">B</text>
+    <text x="719.5" y="170" fill="#566218">C′</text>
+    <text x="748.5" y="170" fill="#566218">D′</text>
+    <text x="777.5" y="170" fill="#566218">E′</text>
+    <text x="806.5" y="170" fill="#69766b">F</text>
+
+    <rect x="707" y="205" width="25" height="28" rx="3" fill="#f6eddc" stroke="#a87624"/>
+    <rect x="736" y="205" width="25" height="28" rx="3" fill="#f6eddc" stroke="#a87624"/>
+    <rect x="765" y="205" width="25" height="28" rx="3" fill="#f6eddc" stroke="#a87624"/>
+    <text x="719.5" y="223" fill="#8f641e">C</text>
+    <text x="748.5" y="223" fill="#8f641e">D</text>
+    <text x="777.5" y="223" fill="#8f641e">E</text>
+  </g>
+
+  <path d="M527 250H826" stroke="#d5ddd1"/>
+  <text x="527" y="270" fill="#43875e" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="700">COMMIT</text>
+  <text x="574" y="270" fill="#66746a" font-family="Inter, Arial, sans-serif" font-size="9">accepts the current state</text>
+  <text x="527" y="294" fill="#b64d43" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="700">ABORT</text>
+  <text x="566" y="294" fill="#66746a" font-family="Inter, Arial, sans-serif" font-size="9">replays the pre-image log</text>
+</svg>
