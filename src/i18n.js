@@ -2,11 +2,12 @@ export const messages = {
   zh: {
     meta: {
       title: 'DeltaBox Lite',
-      description: 'DeltaBox Lite 为 AI 编码 Agent 提供可审查、可提交、可撤销的工作区改动。',
+      description: 'DeltaBox Lite 支持 Windows、macOS 与 Linux，为 AI 编码 Agent 提供可审查、可提交、可撤销的工作区改动。',
     },
     nav: { aria: '主导航', workflow: '工作方式', performance: '性能', film: '宣传片', integrations: '接入', members: '成员', home: 'DeltaBox 首页', language: '语言' },
     hero: {
-      eyebrow: '支持 MacOS 与 Linux',
+      eyebrow: '支持 Windows、macOS 与 Linux',
+      windowsBadge: '现已支持 Windows',
       lead1: '让 Agent 的每一次改动，', lead2: '都有选择。',
       description: '给 AI 编码 Agent 一个可控的工作区。每轮对话查看文件变更，决定保留结果，或撤销尝试。',
       workflow: '了解工作方式', film: '观看宣传片', imageAria: 'DeltaBox 宣传片画面', imageAlt: 'DeltaBox Lite 宣传片中的文件改动演示', scroll: '向下探索 ↓',
@@ -57,7 +58,7 @@ export const messages = {
       dshTitle: '接入 DeepSeek Harness', dshText: '在网页端的审批面板审查改动，选择保留或撤销。',
       piTitle: '接入 Pi', piBefore: '在 Pi 中用 ', piSeparator: '、', piLastSeparator: ' 和 ', piAfter: '命令。',
       afterRelease: '', plannedCommand: '',
-      availability: '也可从源码构建，详见项目 README。',
+      availability: '支持 Windows、macOS 与 Linux。安装说明与源码构建方式详见项目 README。',
       cta: '让每一次尝试，都有选择。', github: '查看 GitHub',
     },
     members: { label: '06 / 成员', title: '一起构建 DeltaBox。', intro: '感谢所有通过代码提交参与项目的贡献者。' },
@@ -84,11 +85,12 @@ export const messages = {
   en: {
     meta: {
       title: 'DeltaBox Lite — Keep or undo every change',
-      description: 'DeltaBox Lite gives AI coding agents a confined workspace with reviewable changes and explicit commit or abort decisions.',
+      description: 'Supports Windows, macOS, and Linux. DeltaBox Lite gives AI coding agents a controlled workspace with reviewable changes and explicit commit or abort decisions.',
     },
     nav: { aria: 'Main navigation', workflow: 'How it works', performance: 'Performance', film: 'Film', integrations: 'Integrations', members: 'Members', home: 'DeltaBox home', language: 'Language' },
     hero: {
-      eyebrow: 'Linux & macOS Support',
+      eyebrow: 'Windows, macOS & Linux Support',
+      windowsBadge: 'Now on Windows',
       lead1: 'Let agents make changes.', lead2: 'You decide what stays.',
       description: 'Give AI coding agents a controlled workspace. Review file changes after each conversation, then decide whether to keep the result or undo the attempt.',
       workflow: 'How it works', film: 'Watch the film', imageAria: 'DeltaBox product film still', imageAlt: 'A file change illustrated in the DeltaBox Lite product film', scroll: 'SCROLL TO EXPLORE ↓',
@@ -139,7 +141,7 @@ export const messages = {
       dshTitle: 'With DeepSeek Harness', dshText: 'Review changes in the web approval panel, then choose whether to keep or undo them.',
       piTitle: 'With Pi', piBefore: 'In Pi, use ', piSeparator: ', ', piLastSeparator: ', and ', piAfter: ' commands.',
       afterRelease: '', plannedCommand: '',
-      availability: 'You can also build from source; see the project README.',
+      availability: 'Supports Windows, macOS, and Linux. See the project README for installation and source build instructions.',
       cta: 'Make every attempt a choice.', github: 'View on GitHub',
     },
     members: { label: '06 / MEMBERS', title: 'Built together.', intro: 'Thanks to everyone who has contributed code to DeltaBox Lite.' },

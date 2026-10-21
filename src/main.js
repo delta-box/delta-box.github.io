@@ -1,4 +1,5 @@
 import './style.css'
+import { initMetalLogo } from './metal-logo.js'
 import './hero.css'
 import './effects.css'
 import './integrations.css'
@@ -29,8 +30,8 @@ document.querySelector('#app').innerHTML = `
   <main id="top">
     <section class="hero section-wrap">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="signal"></span> ${copy.hero.eyebrow}</div>
-        <h1>DeltaBox<span> Lite</span></h1>
+        <div class="eyebrow"><span class="signal" aria-hidden="true"></span> ${copy.hero.eyebrow}</div>
+        <h1>DeltaBox<span class="hero-lite"> Lite<a class="platform-badge" href="#integrations"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 1h6v6H1zm8 0h6v6H9zM1 9h6v6H1zm8 0h6v6H9z"/></svg>${copy.hero.windowsBadge}</a></span></h1>
         <p class="hero-lead">${copy.hero.lead1}<br>${copy.hero.lead2}</p>
         <p class="hero-description">${copy.hero.description}</p>
         <div class="hero-actions"><a class="button primary" href="#workflow">${copy.hero.workflow} <span aria-hidden="true">↗</span></a><a class="button ghost" href="#film">${copy.hero.film} <span aria-hidden="true">↗</span></a></div>
@@ -174,6 +175,7 @@ document.querySelector('#app').innerHTML = `
 `
 
 initFilesystemDemo(document.querySelector('#filesystem-demo'), copy.fs)
+initMetalLogo()
 
 document.querySelectorAll('[data-lang]').forEach((button) => button.addEventListener('click', () => switchLocale(button.dataset.lang)))
 
@@ -198,7 +200,17 @@ document.querySelectorAll('.flow-node').forEach((node) => {
   })
 })
 
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+const reducedMotion = motionPreference.matches
+const badge = document.querySelector('.platform-badge')
+const badgeArea = document.querySelector('.hero-lite')
+badgeArea.addEventListener('pointermove', (event) => {
+  if (motionPreference.matches || event.pointerType !== 'mouse') return
+  const bounds = badgeArea.getBoundingClientRect()
+  const position = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width))
+  badge.style.setProperty('--badge-angle', `${16 - position * 22}deg`)
+})
+badgeArea.addEventListener('pointerleave', () => badge.style.removeProperty('--badge-angle'))
 if (reducedMotion || !('IntersectionObserver' in window)) {
   document.querySelectorAll('.reveal').forEach((item) => item.classList.add('visible'))
 } else {

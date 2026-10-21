@@ -1,0 +1,9 @@
+.metal-logo { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; }
+@media (min-width: 901px) {
+  .hero.has-metal-logo .hero-copy { max-width: 60%; }
+  .hero.has-metal-logo .hero-media { opacity: .2; }
+}
+@media (max-width: 900px) {
+  .hero.has-metal-logo { padding-top: 340px; padding-bottom: 90px; }
+  .hero.has-metal-logo .hero-media { opacity: .12; }
+}
