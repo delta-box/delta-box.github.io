@@ -99,3 +99,15 @@
 @media (max-width: 640px) { .inside-heading { margin-bottom: 30px; } .fs-topbar { padding: 0 15px; min-height: 60px; } .fs-tabs { gap: 13px; } .fs-tabs button { font-size: 11px; } .fs-status { font-size: 10px; } .fs-platform-copy { padding: 16px 15px 6px; min-height: 0; } .fs-canvas { padding: 12px 15px 20px; } .fs-lane-head { min-width: 112px; width: 35%; padding: 11px; } .fs-lane-head strong { font-size: 12px; } .fs-lane-head span { font-size: 8px; } .fs-lane-body small { font-size: 9px; } .fs-blocks, .fs-write-blocks, .fs-old-blocks { --fs-cell: 27px; gap: 3px; } .fs-blocks>span, .fs-write-blocks>span, .fs-old-blocks>span, .fs-flight { font-size: 10px; } .fs-stage { min-height: 64px; padding: 10px 7px; } .fs-stage strong { font-size: 10px; } .fs-bottom { padding: 13px 15px; flex-wrap: wrap; } .fs-decision { width: 100%; justify-content: stretch; } .fs-decision button { flex: 1; justify-content: center; } .fs-narration { padding: 0 15px 16px; } }
 @media (max-width: 640px) { .fs-mac-files { gap: 6px; } .fs-mac-file { min-height: 128px; padding: 9px; } .fs-mac-file strong { font-size: 11px; } .fs-mac-file small, .fs-mac-reference { font-size: 9px; } .fs-mac-reference b { min-width: 0; padding: 2px 3px; } .fs-mac-row { grid-template-columns: 1fr auto; gap: 5px; padding: 6px; } .fs-mac-row-label { font-size: 9px; } .fs-mac-row .fs-blocks { --fs-cell: 29px; gap: 3px; grid-column: 2; grid-row: 1 / 3; } .fs-mac-row .fs-block { font-size: 10px; } .fs-mac-links { justify-content: flex-start; } .fs-mac-links i { min-width: 34px; font-size: 8px; } .fs-mac-events { flex-wrap: wrap; gap: 5px; } .fs-mac-events small { font-size: 9px; } }
 @media (prefers-reduced-motion: reduce) { .fs-demo *, .fs-demo *::before, .fs-demo *::after { animation: none !important; transition: none !important; } }
+
+/* The spatial view uses real cubes; the original CSS diagram remains the flat view. */
+.fs-view-switch { display: flex; gap: 6px; padding: 12px 30px 0; }
+.fs-view-switch button { cursor: pointer; padding: 7px 12px; border: 1px solid #b5c9bc; border-radius: 4px; background: transparent; color: #536d5e; font: 600 11px system-ui; }
+.fs-view-switch button[aria-pressed="true"] { background: #193c30; color: #eff9ed; border-color: #193c30; }
+.fs-spatial { height: 540px; position: relative; background: radial-gradient(ellipse at center, #e2eee5, transparent 70%); }
+.fs-spatial[hidden], .fs-stack { display: none; }
+.fs-spatial canvas { display: block; cursor: grab; }
+.fs-spatial canvas:active { cursor: grabbing; }
+@media (max-width: 640px) { .fs-spatial { height: 460px; } .fs-view-switch { padding-inline: 15px; } }
+
+.fs-demo .fs-spatial-note { max-width: none; margin: 0; padding: 0 30px 22px; color: #536d5e; font-size: 12px; line-height: 1.7; }

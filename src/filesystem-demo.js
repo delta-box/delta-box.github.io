@@ -1,3 +1,4 @@
+import { initFilesystem3D } from './filesystem-3d.js'
 const stages = ['initial', 'save', 'write', 'pending']
 
 const blockRow = (prefix) => `
@@ -31,6 +32,7 @@ const macosDiagram = (copy) => `
 
 export function initFilesystemDemo(root, copy) {
   let platform = 'linux'
+  let spatial = true
   let step = 0
   let outcome = null
   let playing = false
@@ -42,12 +44,18 @@ export function initFilesystemDemo(root, copy) {
   root.innerHTML = `
     <div class="fs-topbar"><div class="fs-tabs" role="tablist" aria-label="${copy.tabsAria}"><button type="button" role="tab" id="fs-tab-linux" aria-controls="fs-panel-linux" aria-selected="true" data-platform="linux">Linux / DeltaFS</button><button type="button" role="tab" id="fs-tab-macos" aria-controls="fs-panel-macos" aria-selected="false" data-platform="macos">macOS / APFS</button></div><div class="fs-status"><span class="fs-status-dot"></span><span id="fs-status-text">${copy.stages[0]}</span></div></div>
     <div class="fs-platform-copy" id="fs-platform-copy">${copy.linux.description}</div>
+    <div class="fs-view-switch" role="group" aria-label="${copy.viewLabel}"><button type="button" data-view="3d" aria-pressed="true">${copy.view3d}</button><button type="button" data-view="2d" aria-pressed="false">${copy.view2d}</button></div>
+    <div class="fs-spatial" aria-label="${copy.stackLabel}"><div class="fs-stack">${[0, 1, 2].map((i) => `<div class="fs-slab" style="--layer:${2 - i}"><div class="fs-slab-title"></div><div class="fs-slab-blocks"></div><small></small></div>`).join('')}</div></div>
+    <p class="fs-spatial-note" hidden></p>
     <div id="fs-panel-linux" role="tabpanel" aria-labelledby="fs-tab-linux">${linuxDiagram(copy)}</div>
     <div id="fs-panel-macos" role="tabpanel" aria-labelledby="fs-tab-macos" hidden>${macosDiagram(copy)}</div>
     <div class="fs-stage-row" role="group" aria-label="${copy.stageAria}">${stages.map((stage, index) => `<button type="button" class="fs-stage" data-step="${index}" aria-current="${index === 0 ? 'step' : 'false'}"><span>0${index + 1}</span><strong>${copy.stages[index]}</strong></button>`).join('')}</div>
     <div class="fs-bottom"><div class="fs-controls"><button type="button" id="fs-prev" aria-label="${copy.previous}" title="${copy.previous}">←</button><button type="button" id="fs-play" aria-label="${copy.play}" title="${copy.play}">▶</button><button type="button" id="fs-next" aria-label="${copy.next}" title="${copy.next}">→</button><span id="fs-counter">01 / 04</span></div><div class="fs-decision"><button type="button" data-outcome="commit">Commit <span>${copy.commit}</span></button><button type="button" data-outcome="abort">Abort <span>${copy.abort}</span></button></div></div>
     <p class="fs-narration" id="fs-narration" aria-live="polite"></p>
   `
+
+  const spatialScene = initFilesystem3D(root.querySelector('.fs-spatial'), copy)
+  if (!spatialScene) spatial = false
 
   const stop = () => {
     playing = false
@@ -68,7 +76,7 @@ export function initFilesystemDemo(root, copy) {
   }
 
   const moveBlocks = (pairs, color) => {
-    if (reducedMotion.matches || !Element.prototype.animate) return
+    if (spatial || reducedMotion.matches || !Element.prototype.animate) return
     pairs.forEach(([source, target], index) => {
       const start = source.getBoundingClientRect()
       const end = target.getBoundingClientRect()
@@ -113,7 +121,7 @@ export function initFilesystemDemo(root, copy) {
     }
     if (next === 2 && platform === 'macos') {
       panel.querySelectorAll('.mac-new-block').forEach((block, index) => {
-        if (reducedMotion.matches || !Element.prototype.animate) return
+        if (spatial || reducedMotion.matches || !Element.prototype.animate) return
         block.animate([
           { transform: 'translateY(34px) scale(.7)', opacity: 0 },
           { transform: 'translateY(-5px) scale(1.07)', opacity: 1, offset: .8 },
@@ -128,7 +136,7 @@ export function initFilesystemDemo(root, copy) {
     if (platform === 'macos') {
       const source = panel.querySelector('.fs-mac-base')
       const target = panel.querySelector('.fs-mac-live')
-      if (reducedMotion.matches || !Element.prototype.animate) return
+      if (spatial || reducedMotion.matches || !Element.prototype.animate) return
       const start = source.getBoundingClientRect()
       const end = target.getBoundingClientRect()
       const bounds = root.getBoundingClientRect()
@@ -166,16 +174,47 @@ export function initFilesystemDemo(root, copy) {
   }
 
   const render = () => {
+    root.dataset.view = spatial ? '3d' : '2d'
+    const spatialNote = root.querySelector('.fs-spatial-note')
+    spatialNote.hidden = !spatial || platform !== 'macos'
+    spatialNote.textContent = copy.macos.graphNote
+    const stageLabels = copy[platform].stages || copy.stages
+    root.querySelectorAll('.fs-stage strong').forEach((label, index) => { label.textContent = stageLabels[index] })
+    root.querySelector('.fs-spatial').hidden = !spatial
+    root.querySelectorAll('[data-view]').forEach((button) => button.setAttribute('aria-pressed', String((button.dataset.view === '3d') === spatial)))
+    const changed = step >= 2 && outcome !== 'abort'
+    const accepted = outcome === 'commit'
+    const blocks = (newValues) => ['A', 'B', 'C', 'D', 'E'].map((letter, i) => `<span class="${i > 1 && newValues ? 'is-new' : ''}">${letter}${i > 1 && newValues ? '′' : ''}</span>`).join('')
+    const layers = platform === 'linux' ? [
+      [copy.linux.input, ['C′', 'D′', 'E′'].map((value) => `<span class="is-new">${value}</span>`).join(''), copy.linux.inputHint, step >= 2],
+      [copy.linux.live, blocks(changed), copy.linux.liveHint, true],
+      [copy.linux.old, ['C', 'D', 'E'].map((value) => `<span class="is-old">${value}</span>`).join(''), copy.linux.oldHint, step >= 1 && !outcome],
+    ] : [
+      [copy.macos.live, blocks(changed), `${copy.macos.pointsTo}${changed ? copy.macos.newVersion : copy.macos.oldVersion}`, true],
+      [copy.macos.base, blocks(accepted), copy.macos.baseHint, step >= 1],
+      [copy.macos.shared, '<span>A</span><span>B</span>', copy.sharedHint, true],
+    ]
+    root.querySelectorAll('.fs-slab').forEach((slab, i) => {
+      slab.querySelector('.fs-slab-title').textContent = layers[i][0]
+      slab.querySelector('.fs-slab-blocks').innerHTML = layers[i][1]
+      slab.querySelector('small').textContent = layers[i][2]
+      slab.classList.toggle('is-muted', !layers[i][3])
+    })
+    spatialScene?.update([...root.querySelectorAll('.fs-slab')].map((slab) => ({
+      title: slab.querySelector('.fs-slab-title').textContent,
+      muted: slab.classList.contains('is-muted'),
+      blocks: [...slab.querySelectorAll('.fs-slab-blocks span')].map((block) => ({ text: block.textContent, kind: block.classList.contains('is-new') ? 'new' : block.classList.contains('is-old') ? 'old' : 'base' })),
+    })), outcome || stages[step], platform)
     root.dataset.platform = platform
     root.dataset.phase = outcome || stages[step]
     root.querySelector('#fs-platform-copy').textContent = copy[platform].description
     root.querySelector('#fs-narration').textContent = copy[platform].lines[outcome === 'commit' ? 4 : outcome === 'abort' ? 5 : step]
-    root.querySelector('#fs-status-text').textContent = outcome === 'commit' ? copy.accepted : outcome === 'abort' ? copy.aborted : copy.stages[step]
+    root.querySelector('#fs-status-text').textContent = outcome === 'commit' ? copy.accepted : outcome === 'abort' ? copy.aborted : stageLabels[step]
     root.querySelector('#fs-counter').textContent = `${String(step + 1).padStart(2, '0')} / 04`
     root.querySelectorAll('.fs-stage').forEach((button, index) => button.setAttribute('aria-current', String(index === step ? 'step' : false)))
     root.querySelectorAll('.fs-tabs button').forEach((button) => button.setAttribute('aria-selected', String(button.dataset.platform === platform)))
-    root.querySelector('#fs-panel-linux').hidden = platform !== 'linux'
-    root.querySelector('#fs-panel-macos').hidden = platform !== 'macos'
+    root.querySelector('#fs-panel-linux').hidden = spatial || platform !== 'linux'
+    root.querySelector('#fs-panel-macos').hidden = spatial || platform !== 'macos'
     root.querySelector('#fs-prev').disabled = step === 0 && !outcome
     root.querySelector('#fs-next').disabled = step === stages.length - 1 && !outcome
     root.querySelectorAll('[data-outcome]').forEach((button) => {
@@ -199,6 +238,11 @@ export function initFilesystemDemo(root, copy) {
     if (step === previous + 1 && (step === 1 || step === 2)) animateStep(step)
   }
 
+  root.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => {
+    clearFlights()
+    spatial = button.dataset.view === '3d' && Boolean(spatialScene)
+    render()
+  }))
   root.querySelectorAll('.fs-tabs button').forEach((button) => button.addEventListener('click', () => {
     stop()
     platform = button.dataset.platform
@@ -237,7 +281,7 @@ export function initFilesystemDemo(root, copy) {
     timer = window.setInterval(() => {
       if (step < stages.length - 1) setStep(step + 1)
       else { applyOutcome('commit'); stop() }
-    }, 1700)
+    }, 2600)
   })
 
   render()
